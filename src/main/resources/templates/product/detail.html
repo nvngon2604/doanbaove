@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+
+	<main th:object="${item}" class="poly-item-detail">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<strong>Có rất nhiều sản phẩm tương tự bạn có thể ghé thăm !</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<div class=" mb-5" style="max-width: 100%;">
+			<div class="row g-0">
+				<div class="col-md-5 text-center mt-4 img-container">
+					<img style="" th:src="@{|/assets/images/*{image}|}"
+						class="img-fluid rounded-start ml-5 mt-5" alt="...">
+				</div>
+				<div class="col-md-7 mt-3">
+					<div class="card-body">
+						<h5 class="card-title">Thông tin sản phẩm</h5>
+						<ul style="list-style:square;">
+							<li th:utext="'<b>Tên sản phẩm</b>: ' +*{name}"></li>
+							<li th:utext="'<b>Giá sản phẩm</b>: $ ' +*{price}"></li>
+							<li th:utext="'<b>Giảm giá</b>: ' +*{discount} + ' %'"></li>
+							<li th:utext="'<b>Giá bán sản phẩm</b>: $ ' +*{discount*price/100}"></li>
+							<li th:utext="'<b>Ngày tạo</b>: ' +*{createDate}"></li>
+							<li th:utext="'<b>Loại sản phẩm</b>: ' +*{category.name}"></li>
+							<li th:utext="'<b>Trạng thái sản phẩm</b>: ' +${item.available?'Hàng có sẵn':'Hàng đang nhập'}"></li>
+						</ul>
+						
+						<div></div>
+						<hr />
+						<p class="card-text">
+							<small class="text-dark"> Sản phẩm tham khảo thêm
+								<ol>
+									<li th:each="p:*{category.products}"><a
+										th:href="@{|/product/detail/${p.id}|}" th:text="${p.name}"
+										style="text-decoration: none;"></a></li>
+								</ol>
+							</small>
+						</p>
+						<div id="fb-root"></div>
+						<script async defer crossorigin="anonymous"
+							src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=230854247939469&autoLogAppEvents=1"
+							nonce="G1YSNZOv"></script>
+						<div class="fb-like"
+							data-href="https://www.facebook.com/Ngonnguyenvan2604"
+							data-width="" data-layout="button_count" data-action="like"
+							data-size="small" data-share="true"></div>
+						<div id="fb-root"></div>
+						
+						<div style="float: right;"
+					th:attr="ng-click=@{|cart.add(${item.id})|}"
+					class="btn btn-outline-dark form-control mt-4">Mua ngay</div>
+					</div>
+				</div>
+			</div>
+			<div class="">
+			</div>
+		</div>
+
+		<div style="font-weight: bolder; font-size: 25px"
+			class="text-center mb-5 mt-5">CÁC SẢN PHẨM CÙNG LOẠI</div>
+
+
+
+		<div class="row container-fluid">
+			<div th:each="p:*{category.products}" class="col-sm-4 mb-5">
+				<div style="border: 2px solid grid; border-radius: 10px;"
+					class="product panel card poly-item border-dark text-center">
+					<a class="img-container" th:href="@{|/product/detail/${p.id}|}">
+						<img style="padding-top: 15px"
+						th:src="@{|/assets/images/${p.image}|}" />
+					</a>
+					<div class="card-body">
+						<div style="font-size: 15px; font-weight: bolder;"
+							class="panel-title" th:utext="${p.name}"></div>
+						<p style="font-size: 12px;" class="ui red tag label mt-3">$
+							[[${p.price}]]</p> Giảm giá: [[${p.discount}]] %
+						<p class="mt-3"><b>Chỉ còn  $ [[${p.price*p.discount/100}]]</b></p>
+						<p class="mt-3"><span class="badge bg-secondary">[[${p.available?'Hàng có sẵn':'Hàng đang nhập (Đặt hàng trước)'}]]</span></p>
+					</div>
+					<div class="card-body text-white">
+						<div style="float: right;"
+							th:attr="ng-click=@{|cart.add(${p.id})|}"
+							class="btn btn-outline-dark form-control">Mua ngay</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="font-weight: bolder; font-size: 25px"
+			class="text-center mb-5 mt-5">ĐÁNH GIÁ SẢN PHẨM</div>
+
+		<div id="fb-root"></div>
+		<script async defer crossorigin="anonymous"
+			src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0&appId=230854247939469&autoLogAppEvents=1"
+			nonce="pfKl4XdT"></script>
+		<div class="fb-comments"
+			data-href="https://www.facebook.com/Ngonnguyenvan2604"
+			data-width="1265" data-numposts="5"></div>
+
+	</main>
+</body>
+
+</html>

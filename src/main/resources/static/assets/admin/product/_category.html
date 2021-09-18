@@ -1,0 +1,76 @@
+<div style="margin-top: 80px" class="card">
+	<div class="card-header text-white bg-dark">QUẢN LÝ DANH MỤC SẢN PHẨM</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-sm">
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<div>Mã loại sản phẩm</div>
+						<br /> <input maxlength="4" ng-model="formCategory.id" name="id"
+							class="form-control" required>
+					</div>
+					<div class="form-group col-sm-6">
+						<div>Tên loại sản phẩm</div>
+						<br /> <input min="1" ng-model="formCategory.name" name="name"
+							class="form-control" required>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer">
+		<button ng-click="createCategory()" class="btn btn-outline-success">
+			<i class="fas fa-download"></i> Lưu
+		</button>
+		<button style="margin-left: 10px" ng-click="updateCategory()"
+			class="btn btn-outline-primary pull-left">
+			<i class="fas fa-pencil-alt"></i> Cập nhật
+		</button>
+		<button style="margin-left: 10px; float: right;"
+			ng-click="deleteCategory(formCategory)"
+			class="btn btn-outline-danger pull-left">
+			<i class="fas fa-minus-circle"></i> Xóa
+		</button>
+		<button style="margin-left: 10px" ng-click="resetCategory()"
+			class="btn btn-outline-warning pull-left">
+			<i class="far fa-file"></i> Làm mới
+		</button>
+	</div>
+</div>
+
+<div style="" class="card  mt-5">
+	<div class="card-header text-white bg-dark">BẢNG DANH MỤC SẢN PHẨM</div>
+	<div class="card-body">
+		<div style="margin: 0 auto" class="row container">
+			<input class="form-control" ng-model="searchCates"
+				style="outline: none; padding: 10px 20px; border: 1px solid black; border-radius: 20px"
+				type="text" placeholder="Tìm kiếm danh mục ..." />
+		</div>
+		<div style="margin-top: 25px" class="form-group">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>MÃ DANH MỤC</th>
+						<th>TÊN DANH MỤC</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in categories | filter:searchCates">
+						<td>#{{item.id}}</td>
+						<td>{{item.name | uppercase}}</td>
+						<td>
+							<button ng-click="editCategory(item)" class="btn btn-primary">
+								<i class="fas fa-pen-square"></i>
+							</button>
+							<button ng-click="deleteCategory(item)" class="btn btn-danger">
+								<i class="fas fa-dumpster"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>

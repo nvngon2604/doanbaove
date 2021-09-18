@@ -1,0 +1,65 @@
+<div class="card">
+	<div class="card-header text-white bg-dark">DANH SÁCH SẢN PHẨM</div>
+	<div class="card-body">
+		<div class="container">
+			<input class="form-control mb-4" ng-model="search"
+				style="outline: none; padding: 10x 20px; border: 1px solid black; border-radius: 20px"
+				type="text" placeholder="Tìm kiếm ..." />
+		</div>
+		<table class="table table-striped">
+			<thead class="">
+				<tr>
+					<th>Mã sản phẩm</th>
+					<th>Tên sản phẩm</th>
+					<th>Giá gốc</th>
+					<th>Giảm giá</th>
+					<th>Giá bán</th>
+					<th>Ngày tạo</th>
+					<th>Hình ảnh</th>
+					<th>Danh mục</th>
+					<th>Hàng có sẵn ?</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items | filter: search">
+					<td>#{{item.id}}</td>
+					<td>{{item.name | uppercase}}</td>
+					<td>${{item.price | number:2}}</td>
+					<td>{{item.discount}} %</td>
+					<th>${{(item.price*item.discount)/100}}</th>
+					<td>{{item.createDate | date: 'dd-MM-yyyy'}}</td>
+					<td>{{item.image}}</td>
+					<td>{{item.category.name}}</td>
+					<td>{{item.available?'Có':'Không'}}</td>
+					<td>
+						<div class="">
+							<button ng-click="edit(item)" class="btn btn-primary">
+								<i class="fas fa-pen-square"></i>
+							</button>
+							<button ng-click="delete(item)" class="btn btn-danger">
+								<i class="fas fa-dumpster"></i>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="card-footer text-center">
+		<button ng-click="pager.first()" class="btn btn-danger">
+			<i class="fas fa-step-backward"></i>
+		</button>
+		<button ng-click="pager.prev()" class="btn btn-primary">
+			<i class="fas fa-backward"></i>
+		</button>
+		<button class="btn btn-default">{{pager.page + 1}} /
+			{{pager.count}}</button>
+		<button ng-click="pager.next()" class="btn btn-success">
+			<i class="fas fa-forward"></i>
+		</button>
+		<button ng-click="pager.last()" class="btn btn-warning">
+			<i class="fas fa-step-forward"></i>
+		</button>
+	</div>
+</div>

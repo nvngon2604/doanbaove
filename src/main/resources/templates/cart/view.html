@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+	<main>
+		<div class="panel panel-warning" th:fragment="shopping_cart">
+			<div class="panel-heading mb-4">
+				<b><i class="fas fa-cart-plus"></i> Giỏ hàng của bạn</b>
+			</div>
+			<table class="table table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th>Mã sản phẩm</th>
+						<th>Tên sản phẩm</th>
+						<th>Đơn giá</th>
+						<th>Số lượng</th>
+						<th>Thành tiền</th>
+						<th></th>
+					</tr>
+					<tr></tr>
+				</thead>
+				<tbody>
+					
+					<tr ng-repeat="item in cart.items">
+						<td>#{{item.id}}</td>
+						<td>{{item.name}}</td>
+						
+						<td>${{item.price | number:2}}</td>
+						<td><input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1" /></td>
+						<th>${{item.qty * item.price | number:2}}</th>
+						<td>
+							<button style="float: right;" ng-click="cart.remove(item.id)" class="btn btn-dark">
+								<b>x</b>
+							</button>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<div class="panel-footer">
+				<button ng-click="cart.clear()" class="btn btn-outline-danger"><i class="fas fa-frown"></i> Xóa hết giỏ hàng</button>
+				<a th:href="@{/product/list}" class="btn btn-outline-primary"><i class="fas fa-arrow-circle-left"></i> Tiếp tục mua hàng</a>
+				<a th:href="@{/order/list}" class="btn btn-outline-warning"><i class="fas fa-barcode"></i> Đơn hàng đã đặt</a>
+				<a th:href="@{/order/checkout}" class="btn btn-outline-success"><i class="far fa-credit-card"></i> Thanh toán</a>
+				<div style="float: right" class="pull-right text-dark btn btn-dark text-white">Tổng tiền: <b>$ {{cart.amount | number:2}}</b></div>
+				
+			</div>
+			
+		</div>
+	</main>
+</body>
+
+</html>
